@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">MathGameV_1</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="welcome">Math Game v1.0B</string>
+</resources>
