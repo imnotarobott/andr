@@ -1,0 +1,10 @@
+<resources>
+    <color name="light_purple">#FFAAAAFF</color>
+    <color name="Black">#000000</color>
+    <color name="Dark_grey">#474747</color>
+    <color name="Dimgrey">#696969</color>
+    <color name="White">#FFFFFF</color>
+    <color name="Grey">#898989</color>
+    <color name="Light_grey">#A7A7A7</color>
+    <color name="button_text">#00DD00</color>
+</resources>
