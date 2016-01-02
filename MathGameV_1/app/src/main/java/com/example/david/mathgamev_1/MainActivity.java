@@ -37,16 +37,18 @@ public class MainActivity extends Activity implements OnClickListener {
         Intent intent;
         switch (v.getId()) {
             case R.id.button1:
-                intent = new Intent(getApplicationContext(), GameActivity.class);
+                intent = new Intent(getApplicationContext(),GameActivity.class);
+                intent.putExtra("xz", 1);
                 startActivity(intent);
                 break;
             case R.id.button2:
-                intent = new Intent(getApplicationContext(), GameActivity.class);
-                startActivity(intent);
-                ;
+                intent = new Intent(getApplicationContext(),GameActivity.class);
+                intent.putExtra("xz", 2);
+                startActivity(intent);;
                 break;
             case R.id.button3:
-                intent = new Intent(getApplicationContext(), GameActivity.class);
+                intent = new Intent(getApplicationContext(),GameActivity.class);
+                intent.putExtra("xz", 3);
                 startActivity(intent);
                 break;
             case R.id.button4:

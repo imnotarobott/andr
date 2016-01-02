@@ -22,11 +22,20 @@ public class GameActivity extends Activity implements View.OnClickListener {
     TextView TV5, TV4, TV2;
     boolean rep_ = false;											//repeat - �j j�t�k
     boolean allj_ = false;
+    int Nehezseg;
+    int Tipp;
+    boolean TippSeged_ = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
         Intent intent = getIntent();
+        Bundle extras = intent.getExtras();
+        Nehezseg = intent.getIntExtra("xz", 0);
+        TV5 = (TextView)findViewById(R.id.textView5);
+        TV4 = (TextView)findViewById(R.id.textView4);
+        TV2 = (TextView)findViewById(R.id.textView2);
+        Foprogram();
     }
 
     public static int randInt(int min, int max)
@@ -35,10 +44,85 @@ public class GameActivity extends Activity implements View.OnClickListener {
         int randomNum = rand.nextInt((max - min) + 1) + min;
         return randomNum;
     }
-
+    public void Foprogram()
+    {
+        if (Nehezseg == 1)
+        {
+            Ossz_max = 19;
+            Szor_max = 5;
+        }
+        else if (Nehezseg == 2)
+        {
+            Ossz_max = 98;
+            Szor_max = 9;
+        }
+        else
+        {
+            Ossz_max = 998;
+            Szor_max = 31;
+        }
+        Pelda_generalas();
+    }
+    public void Feldolgoz(int x)
+    {
+        if (x < 10)
+        {
+            if ((Integer.toString(Tipp)).length() <= (Integer.toString(Eredmeny)).length())
+            {
+                if ((Integer.toString(Tipp)).length() == 1 && !TippSeged_)
+                {
+                    Tipp = x;
+                    TippSeged_ = true;
+                }
+                else
+                {
+                    if (Tipp != 0)
+                    {
+                        Tipp *= 10;
+                        Tipp += x;
+                    }
+                    else
+                    {
+                        Tipp = 0;
+                        TV5.setText(Pelda);
+                    }
+                }
+            }
+            TV5.setText(Pelda + Integer.toString(Tipp));
+            if ((Integer.toString(Tipp)).length() == (Integer.toString(Eredmeny)).length())
+            {
+                if (FKompilator())
+                {
+                    Pelda_generalas();
+                }
+            }
+        }
+        else
+        {
+            Tipp = 0;
+            TippSeged_ = false;
+            TV5.setText(Pelda);
+        }
+    }
+    public boolean FKompilator()
+    {
+        if (Eredmeny == Tipp)
+        {
+            Tipp = 0;
+            TippSeged_ = false;
+            return true;
+        }
+        else
+        {
+            Tipp = 0;
+            TippSeged_ = false;
+            TV5.setText(Pelda);
+            return false;
+        }
+    }
     public void Pelda_generalas()
     {
-        if (Pelda_szama < 20)
+        if (Pelda_szama < 3)
         {
             int p = randInt(1,4);
             if (p == 1)
@@ -135,42 +219,43 @@ public class GameActivity extends Activity implements View.OnClickListener {
                 this.finish();
                 break;
             case R.id.button1:
-                alertbox("1");
+                Feldolgoz(1);
                 break;
             case R.id.Button02:
-                alertbox("2");
+                Feldolgoz(2);
                 break;
             case R.id.Button03:
-                alertbox("3");
+                Feldolgoz(3);
                 break;
             case R.id.Button01:
-                alertbox("4");
+                Feldolgoz(4);
                 break;
             case R.id.Button04:
-                alertbox("5");
+                Feldolgoz(5);
                 break;
             case R.id.Button05:
-                alertbox("6");
+                Feldolgoz(6);
                 break;
             case R.id.Button06:
-                alertbox("7");
+                Feldolgoz(7);
                 break;
             case R.id.Button07:
-                alertbox("8");
+                Feldolgoz(8);
                 break;
             case R.id.Button08:
-                alertbox("9");
+                Feldolgoz(9);
                 break;
             case R.id.Button09:
-                alertbox("0");
+                Feldolgoz(0);
                 break;
             case R.id.Button10:
                 if (!rep_)
-                    alertbox("11");
+                    Feldolgoz(11);
                 else
                 {
                     Intent intent = getIntent();
                     finish();
+                    intent.putExtra("xz", Nehezseg);
                     startActivity(intent);
                 }
                 break;
