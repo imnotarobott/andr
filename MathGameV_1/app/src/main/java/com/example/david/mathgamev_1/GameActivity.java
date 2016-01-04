@@ -11,29 +11,26 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import java.util.Random;
 import android.os.CountDownTimer;
-import android.os.Handler;
 import android.os.SystemClock;
-
-
 
 public class GameActivity extends Activity implements View.OnClickListener {
 
     int Ossz_max;
     int Szor_max;
-    int Pelda_tipus;												//p�lda t�pusa
-    int Eredmeny;													//p�lda erdm�nye int-ben
-    int Tipp;														//felhaszn�l� �ltal megadott tipp
+    int Eredmeny;													//példa eredménye int-ben
+    int Tipp;														//felhasználó által megadott tipp
     int Nehezseg;
     boolean TippSeged_ = false;										//A tipp valtozasat nezi
     String Pelda;													//maga a pelda
-    int Pelda_szama = 0;											//p�lda sz�ma
+    int Pelda_szama = 0;											//példa száma
     TextView TV5, TV4, TV2;
-    boolean rep_ = false;											//repeat - �j j�t�k
+    boolean rep_ = false;											//repeat - új játék
     boolean allj_ = false;
 
     long mStartTime = 0L;
     String Ido;
     Handler mHandler = new Handler();
+    ///
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -61,7 +58,7 @@ public class GameActivity extends Activity implements View.OnClickListener {
 
         @Override
         public void onTick(long millisUntilFinished) {
-            TV5.setText("            " + Long.toString((millisUntilFinished / 1000) - 1));
+            TV5.setText("               " + Long.toString((millisUntilFinished / 1000) - 1));
         }
 
         @Override
@@ -76,7 +73,6 @@ public class GameActivity extends Activity implements View.OnClickListener {
     private Runnable mUpdateTimeTask = new Runnable() {
         public void run()
         {
-            // if (Pelda_szama < 20){										//valamely okokn�l fogva ez nem m�k�dik
             if (!allj_){
                 final long start = mStartTime;
                 long millis = SystemClock.uptimeMillis()- start;
@@ -89,7 +85,6 @@ public class GameActivity extends Activity implements View.OnClickListener {
             {
                 mHandler.removeCallbacks(mUpdateTimeTask);
                 TV2.setText(Ido);
-                // mStartTime = 0L;									//csak akkor kell, ha m�g �jra akarjuk ind�tani
             }
         }
     };
@@ -255,7 +250,7 @@ public class GameActivity extends Activity implements View.OnClickListener {
     }
     public void Pelda_generalas()
     {
-        if (Pelda_szama < 3)
+        if (Pelda_szama < 20)
         {
             int p = randInt(1,4);
             if (p == 1)

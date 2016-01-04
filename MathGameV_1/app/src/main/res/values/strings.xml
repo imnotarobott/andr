@@ -4,5 +4,8 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="welcome">Math Game v1.0B</string>
+    <string name="description">A Math Game egy matematikai játék, amelyben Ön próbára teheti a fejben számolásának sebességét. A játék tartalmaz 3 szintet (könnyű, közepes, nehéz). Szintenként 20 példára kell helyesen felelnie. Ezen példák tartalmaznak összeadásokat, kivonásokat, szorzásokat és osztásokat. A pontozás nem más, mint az adott 20 véletlenszerű példa megoldásának az ideje.\n\nNe feledje, minél gyorsabban végez velük, annál jobban fejlődik a gondolkodása! Jó szórakozást kívánok!</string>
+    <string name="about">Készítette: Szabó Dávid \nVerzió: 1.0B \nVerzió dátuma: 2016. 01. 11.</string>
     <string name="title_activity_game">GameActivity</string>
+    <string name="title_activity_about">AboutActivity</string>
 </resources>

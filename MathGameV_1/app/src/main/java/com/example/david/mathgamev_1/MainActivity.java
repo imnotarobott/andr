@@ -52,7 +52,7 @@ public class MainActivity extends Activity implements OnClickListener {
                 startActivity(intent);
                 break;
             case R.id.button4:
-                intent = new Intent(getApplicationContext(), GameActivity.class);
+                intent = new Intent(getApplicationContext(),AboutActivity.class);
                 startActivity(intent);
                 break;
             case R.id.button5:
