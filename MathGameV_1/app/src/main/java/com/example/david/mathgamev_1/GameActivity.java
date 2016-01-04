@@ -3,30 +3,40 @@ package com.example.david.mathgamev_1;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Button;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import java.util.Random;
+import android.os.CountDownTimer;
+import android.os.Handler;
+import android.os.SystemClock;
 
 
 
 public class GameActivity extends Activity implements View.OnClickListener {
 
-    int Eredmeny;
     int Ossz_max;
     int Szor_max;
+    int Pelda_tipus;												//p�lda t�pusa
+    int Eredmeny;													//p�lda erdm�nye int-ben
+    int Tipp;														//felhaszn�l� �ltal megadott tipp
+    int Nehezseg;
+    boolean TippSeged_ = false;										//A tipp valtozasat nezi
     String Pelda;													//maga a pelda
-    int Pelda_szama = 0;
+    int Pelda_szama = 0;											//p�lda sz�ma
     TextView TV5, TV4, TV2;
     boolean rep_ = false;											//repeat - �j j�t�k
     boolean allj_ = false;
-    int Nehezseg;
-    int Tipp;
-    boolean TippSeged_ = false;
+
+    long mStartTime = 0L;
+    String Ido;
+    Handler mHandler = new Handler();
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
         Intent intent = getIntent();
@@ -35,15 +45,138 @@ public class GameActivity extends Activity implements View.OnClickListener {
         TV5 = (TextView)findViewById(R.id.textView5);
         TV4 = (TextView)findViewById(R.id.textView4);
         TV2 = (TextView)findViewById(R.id.textView2);
+        BDisable(false);
+        final CounterClass timer = new CounterClass(5000, 1000, 0);
+        timer.start();
+        TV2.setText("0:000");
         Foprogram();
     }
 
+    public class CounterClass extends CountDownTimer
+    {
+        public CounterClass(long millisInFuture, long countDownInterval, int tmp)
+        {
+            super(millisInFuture, countDownInterval);
+        }
+
+        @Override
+        public void onTick(long millisUntilFinished) {
+            TV5.setText("            " + Long.toString((millisUntilFinished / 1000) - 1));
+        }
+
+        @Override
+        public void onFinish() {
+            BEnable();
+            TV5.setText(Pelda);
+            mStartTime = SystemClock.uptimeMillis();
+            mHandler.removeCallbacks(mUpdateTimeTask);
+            mHandler.postDelayed(mUpdateTimeTask, 100);
+        }
+    }
+    private Runnable mUpdateTimeTask = new Runnable() {
+        public void run()
+        {
+            // if (Pelda_szama < 20){										//valamely okokn�l fogva ez nem m�k�dik
+            if (!allj_){
+                final long start = mStartTime;
+                long millis = SystemClock.uptimeMillis()- start;
+                int seconds = (int) (millis / 1000);
+                int MilliSec = (int) (millis % 1000);
+                TV2.setText("" + seconds + ":" + String.format("%02d", MilliSec));
+                Ido = seconds + ":" + String.format("%02d", MilliSec);
+                mHandler.postDelayed(this, 200);
+            }else
+            {
+                mHandler.removeCallbacks(mUpdateTimeTask);
+                TV2.setText(Ido);
+                // mStartTime = 0L;									//csak akkor kell, ha m�g �jra akarjuk ind�tani
+            }
+        }
+    };
     public static int randInt(int min, int max)
     {
         Random rand = new Random();
         int randomNum = rand.nextInt((max - min) + 1) + min;
         return randomNum;
     }
+
+    public void BEnable ()
+    {
+        Button b1 = (Button) findViewById(R.id.button1);
+        b1.setEnabled(true);
+        Button b01 = (Button) findViewById(R.id.Button01);
+        b01.setEnabled(true);
+        Button b02 = (Button) findViewById(R.id.Button02);
+        b02.setEnabled(true);
+        Button b03 = (Button) findViewById(R.id.Button03);
+        b03.setEnabled(true);
+        Button b04 = (Button) findViewById(R.id.Button04);
+        b04.setEnabled(true);
+        Button b05 = (Button) findViewById(R.id.Button05);
+        b05.setEnabled(true);
+        Button b06 = (Button) findViewById(R.id.Button06);
+        b06.setEnabled(true);
+        Button b07 = (Button) findViewById(R.id.Button07);
+        b07.setEnabled(true);
+        Button b08 = (Button) findViewById(R.id.Button08);
+        b08.setEnabled(true);
+        Button b09 = (Button) findViewById(R.id.Button09);
+        b09.setEnabled(true);
+        Button b10 = (Button) findViewById(R.id.Button10);
+        b10.setEnabled(true);
+    }
+    public void BDisable(boolean b)
+    {
+        if (b = false)
+        {
+            Button b1 = (Button) findViewById(R.id.button1);
+            b1.setEnabled(false);
+            Button b01 = (Button) findViewById(R.id.Button01);
+            b01.setEnabled(false);
+            Button b02 = (Button) findViewById(R.id.Button02);
+            b02.setEnabled(false);
+            Button b03 = (Button) findViewById(R.id.Button03);
+            b03.setEnabled(false);
+            Button b04 = (Button) findViewById(R.id.Button04);
+            b04.setEnabled(false);
+            Button b05 = (Button) findViewById(R.id.Button05);
+            b05.setEnabled(false);
+            Button b06 = (Button) findViewById(R.id.Button06);
+            b06.setEnabled(false);
+            Button b07 = (Button) findViewById(R.id.Button07);
+            b07.setEnabled(false);
+            Button b08 = (Button) findViewById(R.id.Button08);
+            b08.setEnabled(false);
+            Button b09 = (Button) findViewById(R.id.Button09);
+            b09.setEnabled(false);
+            Button b10 = (Button) findViewById(R.id.Button10);
+            b10.setEnabled(false);
+        }
+        else
+        {
+            Button b1 = (Button) findViewById(R.id.button1);
+            b1.setEnabled(false);
+            Button b01 = (Button) findViewById(R.id.Button01);
+            b01.setEnabled(false);
+            Button b02 = (Button) findViewById(R.id.Button02);
+            b02.setEnabled(false);
+            Button b03 = (Button) findViewById(R.id.Button03);
+            b03.setEnabled(false);
+            Button b04 = (Button) findViewById(R.id.Button04);
+            b04.setEnabled(false);
+            Button b05 = (Button) findViewById(R.id.Button05);
+            b05.setEnabled(false);
+            Button b06 = (Button) findViewById(R.id.Button06);
+            b06.setEnabled(false);
+            Button b07 = (Button) findViewById(R.id.Button07);
+            b07.setEnabled(false);
+            Button b08 = (Button) findViewById(R.id.Button08);
+            b08.setEnabled(false);
+            Button b09 = (Button) findViewById(R.id.Button09);
+            b09.setEnabled(false);
+        }
+    }
+
     public void Foprogram()
     {
         if (Nehezseg == 1)
@@ -152,6 +285,7 @@ public class GameActivity extends Activity implements View.OnClickListener {
             b10.setText("Új jéták");
             b10.setTextSize(20);
             rep_ = true;
+            BDisable(true);
             allj_ = true;
         }
     }
